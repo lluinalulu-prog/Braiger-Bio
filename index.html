@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Досье Мироходца — Брайгер Ульям Дейвин</title>
+    <style>
+        body {
+            background-color: #fdfaf2; /* Нежный кремово-белый фон */
+            color: #1a2332; /* Глубокий темно-синий для текста */
+            font-family: 'Georgia', serif; /* Элегантный книжный шрифт */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Главный бланк-анкета */
+        .diary-page {
+            width: 950px;
+            background: #fbf7ed;
+            border: 4px solid #0f2b5c; /* Королевская синяя рамка */
+            box-shadow: 0 10px 30px rgba(15, 43, 92, 0.1), inset 0 0 40px rgba(212, 175, 55, 0.15); /* Золотистый отсвет */
+            position: relative;
+            padding: 45px;
+            box-sizing: border-box;
+            border-radius: 2px;
+            margin: 20px;
+            
+            /* ФОНОВЫЕ ЗВЕЗДЫ НА БЛАНКЕ */
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffd700' opacity='0.25' d='M12 2l2.4 7.3h7.6l-6.2 4.5 2.4 7.2-6.2-4.5-6.2 4.5 2.4-7.2-6.2-4.5h7.6z'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%23c59b27' opacity='0.2' d='M12 2l2.4 7.3h7.6l-6.2 4.5 2.4 7.2-6.2-4.5-6.2 4.5 2.4-7.2-6.2-4.5h7.6z'/%3E%3C/svg%3E");
+            background-position: 50px 80px, 850px 220px, 120px 500px, 650px 70px;
+            background-repeat: no-repeat;
+        }
+
+        /* СТИКЕР-НАКЛЕЙКА */
+        .sticker-badge {
+            position: absolute;
+            top: -15px;
+            right: 40px;
+            background: #0f2b5c;
+            color: #ffd700;
+            font-family: monospace;
+            padding: 8px 20px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transform: rotate(1deg);
+            box-shadow: 3px 3px 0px #ffd700;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 5;
+        }
+
+        .sparkle-icon {
+            color: #ffd700;
+            font-size: 14px;
+        }
+
+        .gold-seal {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ffd700 0%, #c59b27 100%);
+            border-radius: 50%;
+            border: 2px dashed #0f2b5c;
+            opacity: 0.6;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+
+        /* ВЕРХНЯЯ ЧАСТЬ (ФОТО + ДАННЫЕ) */
+        .top-section {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 35px;
+            align-items: flex-start;
+        }
+
+        /* Рамка для photo */
+        .photo-wrapper {
+            position: relative;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #e2dccb;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .photo-wrapper::before {
+            content: ''; position: absolute; top: -10px; left: -15px;
+            width: 50px; height: 18px; background: rgba(212, 175, 55, 0.3);
+            transform: rotate(-35deg); border-left: 2px dashed rgba(255,255,255,0.5);
+        }
+        .photo-frame {
+            width: 260px;
+            height: 320px;
+            background: #f4efe2;
+            border: 2px solid #ffd700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fields-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-top: 5px;
+        }
+        .info-line {
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .line-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0f2b5c;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+        .line-value {
+            font-size: 20px;
+            color: #1a2332;
+            font-style: italic;
+            min-height: 28px;
+            line-height: 1.4;
+        }
+
+        /* РАЗДЕЛИТЕЛЬ КРЕСТ-НАКРЕСТ */
+        .grid-divider {
+            border-top: 3px solid #0f2b5c;
+            position: relative;
+            margin: 20px 0 35px 0;
+        }
+        .grid-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            height: 520px;
+            border-left: 3px solid #0f2b5c;
+        }
+
+        /* НИЖНЯЯ ЧАСТЬ */
+        .bottom-section {
+            display: flex;
+            gap: 40px;
+            position: relative;
+        }
+        .bottom-column {
+            flex: 1;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+        .column-title {
+            font-size: 24px;
+            color: #0f2b5c;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .data-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .data-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #e2dccb;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .data-list li strong {
+            color: #c59b27;
+        }
+        .sub-skills {
+            margin: 5px 0 0 0;
+            padding-left: 15px;
+            color: #555f6d;
+            font-size: 14px;
+            list-style-type: circle;
+        }
+        .sub-skills li { padding: 3px 0; border: none; }
+
+        /* КНОПКИ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ */
+        .nav-btn {
+            background: #0f2b5c;
+            color: #ffd700;
+            border: 2px solid #ffd700;
+            padding: 12px 24px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px rgba(15, 43, 92, 0.3);
+            transition: all 0.2s;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .nav-btn:hover {
+            background: #163d7a;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px rgba(15, 43, 92, 0.4);
+        }
+
+        /* ВТОРАЯ СТРАНИЦА: ЭСТЕТИКА */
+        #aesthetic-page {
+            display: none;
+        }
+        .aesthetic-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .aesthetic-card {
+            background: #fff;
+            border: 1px solid #e2dccb;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            flex: 1;
+            min-width: 400px;
+            box-sizing: border-box;
+        }
+        .aesthetic-card h4 {
+            margin-top: 0;
+            color: #0f2b5c;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .aesthetic-img-frame {
+            width: 100%;
+            height: 220px;
+            background: #f4efe2;
+            border: 1px solid #ffd700;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .aesthetic-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Блок цветов */
+        .color-palette {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .color-box {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ffd700;
+            border-radius: 4px;
+            position: relative;
+        }
+        .color-box span {
+            position: absolute;
+            bottom: -22px;
+            left: 0;
+            font-size: 11px;
+            font-family: sans-serif;
+            color: #555;
+            width: 100%;
+            text-align: center;
+        }
+
+        .quote-box {
+            font-style: italic;
+            font-size: 20px; /* Сделали шрифт цитаты чуть крупнее для эстетики */
+            line-height: 1.6;
+            color: #1a2332;
+            padding: 25px;
+            background: #fcf9f2;
+            border-left: 4px solid #0f2b5c;
+            margin-top: 15px;
+            text-align: center; /* Центрируем текст как на картинке */
+        }
+        .desc-text {
+            font-size: 14px;
+            color: #4f5d73;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- СТРАНИЦА 1: ГЛАВНАЯ АНКЕТА БРАЙГЕР -->
+    <div class="diary-page" id="main-profile-page">
+        <div class="sticker-badge">
+            <span class="sparkle-icon">✦</span> АРХИВ МИРОХОДЦЕВ <span class="sparkle-icon">✦</span>
+        </div>
+        
+        <div class="top-section">
+            <div class="photo-wrapper">
+                <div class="photo-frame">
+                    <img src="file:///C:/Users/User/Desktop/Рисульки/Брайгерарт1.jpg" alt="Брайгер Ульям Дейвин" onerror="this.src='https://placehold.co✦+БРАЙГЕР+✦';">
+                </div>
+            </div>
+            <div class="fields-wrapper">
+                <div class="info-line">
+                    <div class="line-label">Полное имя:</div>
+                    <div class="line-value" style="font-weight: bold; font-style: normal; color: #0f2b5c;">Брайгер Ульям Дейвин</div>
+                </div>
+                <div class="info-line">
+                    <div class="line-label">Возраст:</div>
+                    <div class="line-value">16 лет</div>
+                </div>
+                <div class="info-line">
+                    <div class="line-label">Характер:</div>
+                    <div class="line-value">Справедливая, вежливая, спокойная, немного гордая, авантюристка.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-divider"></div>
+
+        <div class="bottom-section">
+            <div class="bottom-column">
+                <h3 class="column-title">Семья:</h3>
+                <ul class="data-list">
+                    <li><strong>Отец:</strong> Хартвин Ульям Дейвин<br><span style="color: #555f6d; font-size: 14px;">Экскурсовод</span></li>
+                    <li><strong>Мать:</strong> Диеса Ульям Дейвин<br><span style="color: #555f6d; font-size: 14px;">Бизнес-ассистентка</span></li>
+                </ul>
+                
+                <button class="nav-btn" onclick="showPage('aesthetic-page')">ПОСМОТРЕТЬ ЭСТЕТИКУ →</button>
+            </div>
+
+            <div class="bottom-column" style="padding-left: 20px;">
+                <h3 class="column-title">Интересы, диагнозы и раса:</h3>
+                <ul class="data-list">
+                    <li><strong>Раса:</strong> Человек, мироходец</li>
+                    <li><strong>Интересы:</strong>
+                        <ul class="sub-skills">
+                            <li>Языковые, текстовые навыки и историческая эрудиция</li>
+                            <li>Визуально-пространственное мышление и аналитика</li>
+                            <li>Гуманитарная логика и аргументация</li>
+                        </ul>
+                    </li>
+                    <li><strong>Решение загадок:</strong> Шифры, логические сюжетные задачи, визуальные пазлы, литературные ребусы.</li>
+                    <li><strong>Диагнозы:</strong> Социальная изоляция, гиперфункция нервной системы, синдром "вечного старшего".</li>
+                </ul>
+            </div>
+        </div>
+        <div class="gold-seal"></div>
+    </div>
+
+
+    <!-- СТРАНИЦА 2: ЭСТЕТИКА ПЕРСОНАЖА -->
+    <div class="diary-page" id="aesthetic-page">
+        <div class="sticker-badge">
+            <span class="sparkle-icon">✦</span> ЭСТЕТИКА ГЕРОЯ <span class="sparkle-icon">✦</span>
+        </div>
+
+        <h3 class="column-title" style="font-size: 28px; border-bottom: 3px solid #0f2b5c; padding-bottom: 10px;">Атмосфера & Вдохновение</h3>
+
+        <div class="aesthetic-grid">
+            
+            <!-- 1. ЖИВОТНОЕ: ВОЛК -->
+            <div class="aesthetic-card">
+                <h4>Тотемное животное — Волк</h4>
+                <div class="aesthetic-img-frame">
+                    <img src="https://avatars.mds.yandex.net/get-entity_search/6454749/1262102326/S600xU_2x" alt="Волк" onerror="this.src='https://placehold.co';">
+                </div>
+                <div class="desc-text">
+                    <strong>Почему это животное:</strong> Волк отражает глубокое внутреннее спокойствие Брайгер, её гордость и дух авантюризма. Как и этот хищник, она расчётлива, обладает острым аналитическим умом и всегда нацелена на справедливость. Её вежливость — это не слабость, а контролируемая грация одиночки, которая, тем не менее, готова яростно защищать тех, кто ей дорог.
+                </div>
+            </div>
+
+            <!-- 2. ПЕСНЯ: СУДНО -->
+            <div class="aesthetic-card">
+                <h4>Музыкальная тема — «Судно»</h4>
+                <div class="aesthetic-img-frame">
+                    <img src="https://i.ytimg.com/vi/8uNEVAM-3h8/maxresdefault.jpg" alt="Борис Рыжий - Судно" onerror="this.src='https://placehold.co';">
+                </div>
+                <div style="background: #0f2b5c; padding: 10px; margin-top: 10px; font-family: monospace; font-size: 13px; color: #ffd700; border: 1px solid #ffd700;">
+                    🎵 Сейчас играет: Молчат Дома — Судно (Стихи Б. Рыжего)
+                </div>
+                <div class="desc-text">
+                    <strong>Почему эта песня:</strong> Мрачный, меланхоличный пост-панк на стихи Бориса Рыжего идеально резонирует с её диагнозами. Ритмичный, давящий мотив передаёт социальную изоляцию и гиперфункцию её нервной системы. Текст о бытовой тяжести тонко раскрывает синдром «вечного старшего» — Брайгер привыкла вечно тащить на себе груз ответственности за других, скрывая усталость под маской ледяного спокойствия.
+                </div>
+            </div>
+
+            <!-- 3. ОБНОВЛЕННАЯ ЦИТАТА С КАРТИНКИ -->
+            <div class="aesthetic-card" style="min-width: 100%;">
+                <h4>Главная Цитата / Жизненное кредо</h4>
+                <div class="quote-box">
+                    «Зима внутри меня никогда не закончится.<br>И мне в ней уютно.»
+                </div>
+            </div>
+
+            <!-- 4. ЦВЕТОВАЯ ПАЛИТРА -->
+            <div class="aesthetic-card" style="min-width: 100%;">
+                <h4>Палитра персонажа</h4>
+                <div class="color-palette">
+                    <div class="color-box" style="background: #0f2b5c;"><span>Синий</span></div>
+                    <div class="color-box" style="background: #ffd700;"><span>Золотой</span></div>
+                    <div class="color-box" style="background: #fbf7ed;"><span>Кремовый</span></div>
+                    <div class="color-box" style="background: #1a2332;"><span>Темный</span></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- КНОПКА ВОЗВРАТА НАЗАД -->
+        <button class="nav-btn" style="margin-top: 40px;" onclick="showPage('main-profile-page')">← ВЕРНУТЬСЯ К АНКЕТЕ</button>
+        <div class="gold-seal"></div>
+    </div>
+
+
+    <!-- СКРИПТ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ -->
+    <script>
+        function showPage(pageId) {
+            document.getElementById('main-profile-page').style.display = 'none';
+            document.getElementById('aesthetic-page').style.display = 'none';
+            document.getElementById(pageId).style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+</body>
+</html>
